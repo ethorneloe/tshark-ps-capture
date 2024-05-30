@@ -3,6 +3,7 @@ This repo contains a module that demonstrates how to capture packets with `tshar
 # Config Guide
 ## Requirements
 - Server with `Wireshark` and `PowerShell` installed.
+- Note that this module was developed for `Windows` systems and at present the `tshark.exe` filepath is baked into the module function based on default Wireshark install parameters for a `Windows` machine.  You might need to alter this for your specific scenario.
 
 ## Steps to Perform Capture
 1. Clone this repo and copy the module folder into `PSModulePath` or a local folder of your choice.
@@ -39,4 +40,4 @@ This repo contains a module that demonstrates how to capture packets with `tshar
   
   ```
 
-1. You can also simply set the scriptblock to use `Start-Sleep` and then perform various UI actions to trigger traffic as needed.
+1. You can also simply set the scriptblock to use `Start-Sleep` and then perform various UI actions to trigger traffic as needed. 
