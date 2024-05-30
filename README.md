@@ -11,7 +11,7 @@ To provide an example of how `PowerShell` can be used to automate a `tshark` cap
 ## Steps to Perform Capture
 1. Clone this repo and copy the module folder into `PSModulePath` or a local folder of your choice.
 1. Open PowerShell and import the module into your session.
-1. Create a scriptblock containing the PowerShell actions you want to perform and execute the capture.  For example:
+1. Create a `ScriptBlock` containing the PowerShell actions you want to perform and execute the capture.  For example:
   ```
   $captureActions = {
 
@@ -32,7 +32,7 @@ To provide an example of how `PowerShell` can be used to automate a `tshark` cap
     }
 
     # Call Invoke-TLSCapture with the script block
-    $results = Invoke-TLSCapture -InterfaceName "Ethernet0" -ScriptBLock $captureActions -FlushDNS
+    $results = Invoke-TLSCapture -InterfaceName "Ethernet0" -ScriptBlock $captureActions -FlushDNS
 
     # View and filter out the various objects collected from the capture
     $results.ClientHellos | Select-Object CipherSuites
@@ -43,4 +43,4 @@ To provide an example of how `PowerShell` can be used to automate a `tshark` cap
 
   ```
 
-1. You can also simply set the scriptblock to use `Start-Sleep` and then perform various UI actions to trigger traffic as needed.
+1. You can also simply set the `ScriptBlock` to use `Start-Sleep` and then perform various UI actions to trigger traffic as needed.
