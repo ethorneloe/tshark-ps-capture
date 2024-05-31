@@ -147,7 +147,7 @@ Function Invoke-TLSCapture {
             # No pipe so it's not a line we are interested in
             if ($_ -notmatch "\|") { continue }
 
-            # Seperate out the fields
+            # Separate out the fields
             $fields = $_ -split '\|'
 
             $protocols = $fields[1]
@@ -193,22 +193,21 @@ Function Invoke-TLSCapture {
             }
             elseif ($protocols -match 'dns') {
 
-                $DNSResponseFlag = $fields[11]
+                $DNSResponseFlag = $fields[11].ToLower()
 
-                if ($DNSResponseFlag -eq '0') {
+                if ( ($DNSResponseFlag -eq '0') -or ($DNSResponseFlag -eq 'false') ) {
 
                     $obj = [PSCustomObject]@{
                         Timestamp       = $fields[0]
                         Protocol        = 'dns'
                         SourceIP        = $fields[2]
                         DestinationIP   = $fields[3]
-                        DNSResponseFlag = @{ '0' = "query"; '1' = "response" }[$DNSResponseFlag]
+                        DNSResponseFlag = @{ '0' = "query"; 'false' = "query"; '1' = "response"; 'true' = "response" }[$DNSResponseFlag]
                         DNSQueryName    = $fields[12]
                     }
-
                     $DNSQueries.Add($obj) | Out-Null
                 }
-                elseif ($DNSResponseFlag -eq '1') {
+                elseif ( ($DNSResponseFlag -eq '1') -or ($DNSResponseFlag -eq 'true') ) {
 
                     # If there are IPs in the response, add to the mapping using the DNS query name
                     $DNSResponseAddresses = $fields[16] -split ','
@@ -221,14 +220,13 @@ Function Invoke-TLSCapture {
                         Protocol           = 'dns'
                         SourceIP           = $fields[2]
                         DestinationIP      = $fields[3]
-                        DNSResponseFlag    = @{ '0' = "query"; '1' = "response" }[$DNSResponseFlag]
+                        DNSResponseFlag    = @{ '0' = "query"; 'false' = "query"; '1' = "response"; 'true' = "response" }[$DNSResponseFlag]
                         DNSQueryName       = $fields[12]
                         DNSResponseName    = $fields[13] -split ','
                         DNSResponseType    = $fields[14] -split ',' | ForEach-Object { @{ "1" = "A"; "5" = "CNAME" }[$_] }
                         DNSResponseCname   = $fields[15] -split ','
                         DNSResponseAddress = $DNSResponseAddresses
                     }
-
                     $DNSResponses.Add($obj) | Out-Null
                 }
             }
