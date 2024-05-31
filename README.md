@@ -6,7 +6,7 @@ To provide an example of how `PowerShell` can be used to automate a `tshark` cap
 ## Requirements
 - Server with `Wireshark` and `PowerShell` installed.
 - Note that this module was developed for `Windows` systems and at present the `tshark.exe` filepath is baked into the module function based on default Wireshark install parameters for a `Windows` machine.  You might need to alter this for your specific scenario.
-- Make sure to set the `InterfaceName` parameter accordingly.
+- Make sure to set the `InterfaceName` parameter accordingly when using the `Invoke-TLSCapture` function.
 
 ## Steps to Perform Capture
 1. Clone this repo and copy the module folder into `PSModulePath` or a local folder of your choice.
