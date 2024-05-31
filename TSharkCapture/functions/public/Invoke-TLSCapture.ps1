@@ -232,8 +232,8 @@ Function Invoke-TLSCapture {
             }
             elseif ($protocols.EndsWith('tcp')) {
 
-                # Check if it is a reset - needs to be done last as all protocol strings earlier contain 'tcp'
-                if ($fields[17] -eq '1') {
+                # Check if it is a reset
+                if ($fields[17] -eq '1' -or $fields[17].ToLower() -eq 'true') {
                     $obj = [PSCustomObject]@{
                         Timestamp     = $fields[0]
                         Protocol      = 'tcp'
