@@ -50,40 +50,41 @@ The module includes a function called `Get-TraceDataByDomain` which can be used 
 ```
 PS C:\Dev\tshark-ps-capture> Get-TraceDataByDomain -TraceData $traceData -Domain "www.google.com"
 
-Timestamp       : May 31, 2024 13:55:04.923082000 E. Australia Standard Time
+Timestamp       : May 31, 2024 17:26:17.767891000 E. Australia Standard Time
 Protocol        : dns
-SourceIP        : 10.0.1.192
-DestinationIP   : 8.8.8.8
+SourceIP        : 172.20.10.7
+DestinationIP   : 172.20.10.1
 DNSResponseFlag : query
 DNSQueryName    : www.google.com
 
-Timestamp          : May 31, 2024 13:55:04.984656000 E. Australia Standard Time
+Timestamp          : May 31, 2024 17:26:17.773738000 E. Australia Standard Time
 Protocol           : dns
-SourceIP           : 8.8.8.8
-DestinationIP      : 10.0.1.192
+SourceIP           : 172.20.10.1
+DestinationIP      : 172.20.10.7
 DNSResponseFlag    : response
 DNSQueryName       : www.google.com
 DNSResponseName    : {www.google.com}
 DNSResponseType    : A
 DNSResponseCname   : {}
-DNSResponseAddress : {142.250.204.100}
+DNSResponseAddress : {142.251.220.196}
 
-Timestamp               : May 31, 2024 13:55:05.048219000 E. Australia Standard Time
+Timestamp               : May 31, 2024 17:26:17.846899000 E. Australia Standard Time
 Protocol                : tls
-SourceIP                : 10.0.1.192
-DestinationIP           : 142.250.204.100
+SourceIP                : 172.20.10.7
+DestinationIP           : 142.251.220.196
 HandshakeType           : Client Hello
 RecordVersion           : TLS 1.0
 HandShakeVersion        : TLS 1.2
-CipherSuites            : {TLS_AES_256_GCM_SHA384, TLS_AES_128_GCM_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256…}
-SupportedVersions       : {TLS 1.3, TLS 1.2, TLS 1.1, TLS 1.0}
+CipherSuites            : {TLS_AES_256_GCM_SHA384, TLS_AES_128_GCM_SHA256, TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,
+                          TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256…}
+SupportedVersions       : {TLS 1.3, TLS 1.2}
 SignatureHashAlgorithms : {rsa_pss_rsae_sha256, rsa_pss_rsae_sha384, rsa_pss_rsae_sha512, rsa_pkcs1_sha256…}
 ServerName              : www.google.com
 
-Timestamp               : May 31, 2024 13:55:05.125474000 E. Australia Standard Time
+Timestamp               : May 31, 2024 17:26:17.942751000 E. Australia Standard Time
 Protocol                : tls
-SourceIP                : 142.250.204.100
-DestinationIP           : 10.0.1.192
+SourceIP                : 142.251.220.196
+DestinationIP           : 172.20.10.7
 HandshakeType           : Server Hello
 RecordVersion           : TLS 1.2
 HandShakeVersion        : TLS 1.2
