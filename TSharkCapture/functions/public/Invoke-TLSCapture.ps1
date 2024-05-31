@@ -29,30 +29,29 @@
                 Invoke-WebRequest $_  | Out-Null
             }
             catch {
-                Write-Error "An error occured - capture actions - $_"
+                Write-Error "An error occurred - capture actions - $_"
             }
         }
     }
 
     # Call Invoke-TLSCapture with the script block
-    $results = Invoke-TLSCapture -InterfaceName "Ethernet0" -ScriptBLock $captureActions -FlushDNS
+    $traceData = Invoke-TLSCapture -InterfaceName "Ethernet0" -ScriptBLock $captureActions -FlushDNS
 
-    $results.ClientHellos | Select-Object CipherSuites
-    $results.ServerHellos | Where-Object {$_.SupportedVersions -match '1.3'}
-    $results.DNSResponses | Where-Object {$_.DNSResponseType -contains 'CNAME'}
-    $results.DNSQueries
-    $results.TCPResets
+    $traceData.ClientHellos | Select-Object CipherSuites
+    $traceData.ServerHellos | Where-Object {$_.SupportedVersions -match '1.3'}
+    $traceData.DNSResponses | Where-Object {$_.DNSResponseType -contains 'CNAME'}
+    $traceData.DNSQueries
+    $traceData.TCPResets
 
 .EXAMPLE
 
-    #This will simply run the capture for 10 minutes.
+    #This will simply run the capture for 1 minute.
 
     $captureActions = {
-        # Sleep for 10 Minutes
-        Start-Sleep -Seconds 600
+        Start-Sleep -Seconds 60
     }
 
-    $results = Invoke-TLSCapture -InterfaceName "Ethernet0" -ScriptBLock $captureActions
+    $traceData = Invoke-TLSCapture -InterfaceName "Ethernet0" -ScriptBLock $captureActions
 
 .NOTES
   This function depends on the following supporting functions in this module:
