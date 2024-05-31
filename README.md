@@ -1,5 +1,5 @@
 # Overview
-This repo contains a module that demonstrates how to capture packets with `tshark` into `PowerShell` objects.  In particular, traffic relating to DNS, TLS, and TCP resets are captured as a way to facilitate the capture of cipher suites, TLS versions, and flows that might help troubleshoot HTTPS connectivity issues or confirm TLS configuration.
+This repo contains a module that demonstrates how to capture packets with `tshark` into `PowerShell` objects.  In particular, traffic relating to DNS, TLS, and TCP resets are captured as a way to examine the cipher suites, TLS versions, and flows that might help troubleshoot HTTPS connectivity issues or confirm TLS configuration.
 # Goals
 To provide an example of how `PowerShell` can be used to automate a `tshark` capture and supply relevant data organized into objects that can be queried/filtered.
 # Config Guide
