@@ -4,7 +4,7 @@ This repo contains a module that demonstrates how to capture packets with `tshar
 To provide an example of how `PowerShell` can be used to automate a `tshark` capture and supply relevant data organized into objects that can be queried/filtered.
 # Config Guide
 ## Requirements
-- Machine with `Wireshark` and `PowerShell` installed. Note that this only been tested on `Wireshark 4.2.5` and `PowerShell 7.4.2`.
+- Machine with `Wireshark` and `PowerShell` installed. Note that this has only been tested on `Wireshark 4.2.5` and `PowerShell 7.4.2`
 - Note that this module was developed for `Windows` systems and at present the `tshark.exe` filepath is baked into the module function based on default Wireshark install parameters for a `Windows` machine.  You might need to alter this for your specific scenario.
 - Make sure to set the `InterfaceName` parameter accordingly when using the `Invoke-TLSCapture` function.
 
