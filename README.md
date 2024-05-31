@@ -42,8 +42,7 @@ To provide an example of how `PowerShell` can be used to automate a `tshark` cap
     $traceData.TCPResets
 
   ```
-
-1. You can also set the `ScriptBlock` to only execute `Start-Sleep` and then perform various UI actions to trigger traffic as needed.
+You can also set the `ScriptBlock` to only execute `Start-Sleep` and then perform various UI actions to trigger traffic as needed.
 
 ## Filtering Data for a Specific Domain
 The module includes a function called `Get-TraceDataByDomain` which can be used with the results from `Invoke-TLSCapture` to display data relating to a specific domain such as `www.google.com` as shown below.  Note that DNS names are added to output objects only when the DNS reponse traffic takes place during the capture.
