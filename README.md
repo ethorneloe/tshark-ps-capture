@@ -26,21 +26,71 @@ To provide an example of how `PowerShell` can be used to automate a `tshark` cap
                 Invoke-WebRequest $_  | Out-Null
             }
             catch {
-                Write-Error "An error occured - capture actions - $_"
+                Write-Error "An error occurred - capture actions - $_"
             }
         }
     }
 
     # Call Invoke-TLSCapture with the script block
-    $results = Invoke-TLSCapture -InterfaceName "Ethernet0" -ScriptBlock $captureActions -FlushDNS
+    $traceData = Invoke-TLSCapture -InterfaceName "Ethernet0" -ScriptBlock $captureActions -FlushDNS
 
     # View and filter out the various objects collected from the capture
-    $results.ClientHellos | Select-Object CipherSuites
-    $results.ServerHellos | Where-Object {$_.SupportedVersions -match '1.3'}
-    $results.DNSResponses | Where-Object {$_.DNSResponseType -contains 'CNAME'}
-    $results.DNSQueries
-    $results.TCPResets
+    $traceData.ClientHellos | Select-Object CipherSuites
+    $traceData.ServerHellos | Where-Object {$_.SupportedVersions -match '1.3'}
+    $traceData.DNSResponses | Where-Object {$_.DNSResponseType -contains 'CNAME'}
+    $traceData.DNSQueries
+    $traceData.TCPResets
 
   ```
 
 1. You can also simply set the `ScriptBlock` to use `Start-Sleep` and then perform various UI actions to trigger traffic as needed.
+
+## Filtering Data for a Specific Domain
+The module includes a function called `Get-TraceDataByDomain` which can be used with the results from `Invoke-TLSCapture` to display data relating to a specific domain such as `www.google.com` as shown below.
+
+```
+PS C:\Dev\tshark-ps-capture> Get-TraceDataByDomain -TraceData $traceData -Domain "www.google.com"
+
+Timestamp       : May 31, 2024 13:55:04.923082000 E. Australia Standard Time
+Protocol        : dns
+SourceIP        : 10.0.1.192
+DestinationIP   : 8.8.8.8
+DNSResponseFlag : query
+DNSQueryName    : www.google.com
+
+Timestamp          : May 31, 2024 13:55:04.984656000 E. Australia Standard Time
+Protocol           : dns
+SourceIP           : 8.8.8.8
+DestinationIP      : 10.0.1.192
+DNSResponseFlag    : response
+DNSQueryName       : www.google.com
+DNSResponseName    : {www.google.com}
+DNSResponseType    : A
+DNSResponseCname   : {}
+DNSResponseAddress : {142.250.204.100}
+
+Timestamp               : May 31, 2024 13:55:05.048219000 E. Australia Standard Time
+Protocol                : tls
+SourceIP                : 10.0.1.192
+DestinationIP           : 142.250.204.100
+HandshakeType           : Client Hello
+RecordVersion           : TLS 1.0
+HandShakeVersion        : TLS 1.2
+CipherSuites            : {TLS_AES_256_GCM_SHA384, TLS_AES_128_GCM_SHA256, TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384, TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256…}
+SupportedVersions       : {TLS 1.3, TLS 1.2, TLS 1.1, TLS 1.0}
+SignatureHashAlgorithms : {rsa_pss_rsae_sha256, rsa_pss_rsae_sha384, rsa_pss_rsae_sha512, rsa_pkcs1_sha256…}
+ServerName              : www.google.com
+
+Timestamp               : May 31, 2024 13:55:05.125474000 E. Australia Standard Time
+Protocol                : tls
+SourceIP                : 142.250.204.100
+DestinationIP           : 10.0.1.192
+HandshakeType           : Server Hello
+RecordVersion           : TLS 1.2
+HandShakeVersion        : TLS 1.2
+CipherSuites            : TLS_AES_256_GCM_SHA384
+SupportedVersions       : TLS 1.3
+SignatureHashAlgorithms :
+ServerName              : www.google.com
+```
+
